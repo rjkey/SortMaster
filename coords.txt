@@ -1,0 +1,9 @@
+Seen from the robots perspective
+
+Top right corner in coords: x = 10 y = 18
+Top right corner in pixels: x = 170 y = 286
+
+Bottom left corner in coords x = -3 y = 32
+Bottom left corner in pixels: x = 36 y = 404
+
+
