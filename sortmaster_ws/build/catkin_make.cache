@@ -1,0 +1,2 @@
+sortmaster
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/sortmaster_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/sortmaster_ws/install

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "sortmaster")
+set(sortmaster_MAINTAINER "ubuntu <ubuntu@todo.todo>")
+set(sortmaster_DEPRECATED "")
+set(sortmaster_VERSION "0.0.0")
+set(sortmaster_BUILD_DEPENDS "rospy" "std_msgs")
+set(sortmaster_RUN_DEPENDS "rospy" "std_msgs")
+set(sortmaster_BUILDTOOL_DEPENDS "catkin")
