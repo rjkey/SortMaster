@@ -40,19 +40,22 @@ def get_coordinates_from_image():
     image = cv2.imread('picture.jpg')
 
     color = TR.FindBrickColor(image)
+    print color
     field = TR.FindField(image)
+    print field
 
     pixelCoords = PC.get_pixel_coords(image, color)
+    #print pixelCoords[0]
     realCoords = CC.pixel_2_coordinates(pixelCoords)
 
     #toRobot = [realCoords[0], realCoords[1], field]
-    x = str(realCoords[0])
-    y = str(realCoords[1])
-    stringField = str(field)
-    toRobot = x + "," + y + "," + stringField
+    #x = str(realCoords[0])
+    #y = str(realCoords[1])
+    #stringField = str(field)
+    toRobot = "Hello!" #x + "," + y + "," + stringField
 
     i = 0
-    while (i != 10):
+    while (i != 4):
         i = i + 1
         rospy.loginfo(toRobot)
         pub.publish(toRobot)
@@ -62,7 +65,7 @@ def get_coordinates_from_image():
 if __name__ == '__main__':
     image = get_from_webcam()
     cv2.imwrite("picture.jpg", image)
-    #get_coordinates_from_image()
+    get_coordinates_from_image()
     #image = cv2.imread('picture.jpg')
     #cv2.imshow('raw',image)
 

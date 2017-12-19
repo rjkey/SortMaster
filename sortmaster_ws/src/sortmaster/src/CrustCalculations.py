@@ -49,7 +49,45 @@ class Calculations:
 		
 
     def pixel_2_coordinates(self, pixelCoords):
-        message = [11,11]
-        return message
+
+		stuff = pixelCoords[0]
+
+		for(x, y) in stuff:
+
+			x = x - 2*x
+
+			y = y - 2*y
+			print "X VALUE: " + str(x)
+			print "Y VALUE: " + str(y)
+
+
+			xCoord = (y/8.6)+(394/8.6)
+			yCoord = (x/8.6)+(330/8.6)
+
+			print "REAL X VALUE: " + str(xCoord)
+			print "REAL Y VALUE: " + str(yCoord)
+
+		return xCoord
+
+
+
+
+
+
+#for (x, y) in pixelCoords:
+	#xCoord = x
+	#yCoord = y
+
+
+	#print x
+
+	#xRealCoord = (-x/8.6)+(394/8.6)
+	#yRealCoord = (-y/8.6)+(330/8.6)
+
+	#print xRealCoord
+
+	#print yRealCoord
+
+	#message = "bais"
 
 
