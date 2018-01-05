@@ -65,7 +65,7 @@ class PixelCoords:
                 cv2.circle(output, (i[0], i[1]), 2, (0, 0, 255), 3)
 
                 print("Done!")
-                cv2.imshow("Found stuff", output)
+                #cv2.imshow("Found stuff", output)
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
         else:
