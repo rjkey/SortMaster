@@ -26,6 +26,8 @@ class TextRecognition:
 
         result = pytesseract.image_to_string(Image.open("removed_noise_brick.png"), config='-psm 6')
 
+        print result
+
         if result in colorArray:
             return result
 

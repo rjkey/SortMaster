@@ -42,24 +42,28 @@ def get_coordinates_from_image():
     color = TR.FindBrickColor(image)
     print color
     field = TR.FindField(image)
-    print field
+    print
 
     pixelCoords = PC.get_pixel_coords(image, color)
     #print pixelCoords[0]
     realCoords = CC.pixel_2_coordinates(pixelCoords)
 
+    print "test"
+    print realCoords[0]
+    print realCoords[1]
+
     #toRobot = [realCoords[0], realCoords[1], field]
-    #x = str(realCoords[0])
-    #y = str(realCoords[1])
-    #stringField = str(field)
-    toRobot = "Hello!" #x + "," + y + "," + stringField
+    x = str(realCoords[0])
+    y = str(realCoords[1])
+    stringField = str(field)
+    toRobot = x + "," + y + "," + stringField #"Hello,bitch,cunt"
 
     i = 0
-    while (i != 4):
+    while (i != 1):
         i = i + 1
         rospy.loginfo(toRobot)
         pub.publish(toRobot)
-        time.sleep(2)
+        time.sleep(5)
 
 
 if __name__ == '__main__':
