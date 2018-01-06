@@ -21,7 +21,7 @@ class RobotController:
 
 	N_JOINTS = 4
 	def __init__(self):
-		rospy.init_node('listener', anonymous=True)
+		rospy.init_node('robotcontroller', anonymous=True)
 
 		rospy.Subscriber("sortmaster", String, self.callback)
 		self.client = actionlib.SimpleActionClient("/arm_controller/follow_joint_trajectory",
