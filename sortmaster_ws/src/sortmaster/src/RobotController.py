@@ -27,21 +27,21 @@ class RobotController:
 		self.client = actionlib.SimpleActionClient("/arm_controller/follow_joint_trajectory",
 												   FollowJointTrajectoryAction)
 		self.gripperPublisher = rospy.Publisher("/gripper/command", Float64)
+		self.donePub = rospy.Publisher("robotdone", String)
 
 		rospy.spin()
 
 	def callback(self, data):
 
-
 		self.client.wait_for_server()
 		x, y, field = data.data.split(",")
 
-		doneArray = [0,0,54.2]
-
-		self.goal = RobotMover.MoveTheRobot(doneArray)
-
-		self.client.send_goal(self.goal)
-		self.client.wait_for_result()
+		# doneArray = [0,0,54.2]
+        #
+		# self.goal = RobotMover.MoveTheRobot(doneArray)
+        #
+		# self.client.send_goal(self.goal)
+		# self.client.wait_for_result()
 
 		coordArray = [x, y, 4]
 
@@ -62,7 +62,7 @@ class RobotController:
 
 		fieldCoord = []
 
-		doneArray = [0,0,54.2]
+		doneArray = [15,10,30]
 
 		self.goal = RobotMover.MoveTheRobot(doneArray)
 
@@ -95,7 +95,7 @@ class RobotController:
 		self.client.send_goal(self.goal)
 		self.client.wait_for_result()
 
-
+		self.donePub.publish("Done")
 
 
 if __name__ == '__main__':

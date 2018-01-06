@@ -14,64 +14,81 @@ CC = Calculations()
 import rospy
 import time
 from std_msgs.msg import String
+i = 0
+class PictureNode:
+    def __init__(self):
+        rospy.init_node('picturehandler', anonymous=True)
+        rospy.Subscriber("robotdone", String, self.callback)
+        self.pub = rospy.Publisher('sortmaster', String, queue_size=10)
 
-def get_from_webcam():
-    """
-    Fetches an image from the webcam
-    """
-    print "try fetch from webcam..."
-    stream=urllib.urlopen('http://192.168.0.20/image/jpeg.cgi')
-    bytes=''
-    bytes+=stream.read(64500)
-    a = bytes.find('\xff\xd8')
-    b = bytes.find('\xff\xd9')
+        self.Run()
 
-    if a != -1 and b != -1:
-        jpg = bytes[a:b+2]
-        bytes= bytes[b+2:]
-        i = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
-        return i
-    else:
-        print "did not receive image, try increasing the buffer size in line 13:"
+        rospy.spin()
 
-def get_coordinates_from_image():
-    pub = rospy.Publisher('sortmaster', String, queue_size=10)
-    rospy.init_node('picturehandler', anonymous=True)
-    image = cv2.imread('picture.jpg')
 
-    color = TR.FindBrickColor(image)
-    print color
-    field = TR.FindField(image)
-    print
+    def get_from_webcam(self):
+        """
+        Fetches an image from the webcam
+        """
+        print "try fetch from webcam..."
+        stream = urllib.urlopen('http://192.168.0.20/image/jpeg.cgi')
+        bytes = ''
+        bytes += stream.read(64500)
+        a = bytes.find('\xff\xd8')
+        b = bytes.find('\xff\xd9')
 
-    pixelCoords = PC.get_pixel_coords(image, color)
-    #print pixelCoords[0]
-    realCoords = CC.pixel_2_coordinates(pixelCoords)
+        if a != -1 and b != -1:
+            jpg = bytes[a:b + 2]
+            bytes = bytes[b + 2:]
+            i = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.CV_LOAD_IMAGE_COLOR)
+            return i
+        else:
+            print "did not receive image, try increasing the buffer size in line 13:"
 
-    print "test"
-    print realCoords[0]
-    print realCoords[1]
 
-    #toRobot = [realCoords[0], realCoords[1], field]
-    x = str(realCoords[0])
-    y = str(realCoords[1])
-    stringField = str(field)
-    toRobot = x + "," + y + "," + stringField #"Hello,bitch,cunt"
+    def get_coordinates_from_image(self):
 
-    i = 0
-    while (i != 1):
-        i = i + 1
+        image = cv2.imread('picture.jpg')
+
+        color = TR.FindBrickColor(image)
+        print color
+        field = TR.FindField(image)
+
+        pixelCoords = PC.get_pixel_coords(image, color)
+
+        realCoords = CC.pixel_2_coordinates(pixelCoords)
+
+        print realCoords[0]
+        print realCoords[1]
+
+        x = str(realCoords[0])
+        y = str(realCoords[1])
+        stringField = str(field)
+        toRobot = x + "," + y + "," + stringField
+
         rospy.loginfo(toRobot)
-        pub.publish(toRobot)
-        time.sleep(5)
+        self.pub.publish(toRobot)
+
+
+    def callback(self, data):
+        raw_input("Please press a key to continue")
+        self.Run()
+
+    def Run(self):
+        global i
+        if(i < 1):
+            raw_input("Please press a key to continue")
+            i = 2
+        image = self.get_from_webcam()
+        cv2.imwrite("picture.jpg", image)
+        self.get_coordinates_from_image()
+
 
 
 if __name__ == '__main__':
-    image = get_from_webcam()
-    cv2.imwrite("picture.jpg", image)
-    get_coordinates_from_image()
-    #image = cv2.imread('picture.jpg')
-    #cv2.imshow('raw',image)
+    node = PictureNode()
+
+
 
 
 
