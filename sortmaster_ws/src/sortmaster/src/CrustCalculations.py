@@ -55,7 +55,7 @@ class Calculations:
 			yCoord = (x/8.6)+(330/8.6)
 
 			XcalVar = 1 - 3.5
-			YcalVar = 1 - 2.5
+			YcalVar = 1 - 2
 
 			xCoord = xCoord + XcalVar
 			yCoord = yCoord + YcalVar
